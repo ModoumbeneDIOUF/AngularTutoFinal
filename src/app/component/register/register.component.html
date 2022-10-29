@@ -1,0 +1,83 @@
+
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-4 offset-md-4"> a ajouter
+
+        <form #userForm="ngForm" (ngSubmit)="registerUser()">
+          <div class="mt-3 form-group">
+            <label for="prenom">Prenom</label>
+            <span class="text-danger">*</span>
+            <input type="text" name="prenom" required [class.is-invalid]="prenom.invalid && prenom.touched " [class.is-valid]="prenom.valid" #prenom="ngModel" [(ngModel)]="user.prenom" tabindex="1" class="form-control" placeholder="Prenom" value="">
+            <small class="text-danger" [class.d-none]=" prenom.untouched || prenom.valid"> Veuillez saisir votre prenom </small>
+
+          </div>
+          <div class="mt-3 form-group">
+            <label for="nom">Nom</label>
+             <span class="text-danger">*</span>
+            <input type="nom" name="nom" id="nom" required [class.is-invalid]="nom.invalid && nom.touched " [class.is-valid]="nom.valid" #nom="ngModel" [(ngModel)]="user.nom" tabindex="2" class="form-control" placeholder="Nom">
+            <small class="text-danger" [class.d-none]=" nom.untouched || nom.valid"> Veuillez saisir votre nom </small>
+          </div>
+          <div class="mt-3 form-group">
+            <label for="adresse">Adresse</label>
+             <span class="text-danger">*</span>
+            <input type="adresse" name="adresse" id="adresse" required [class.is-invalid]="adresse.invalid && adresse.touched " [class.is-valid]="adresse.valid" #adresse="ngModel" [(ngModel)]="user.adresse" tabindex="2" class="form-control" placeholder="Adresse">
+            <small class="text-danger" [class.d-none]="adresse.untouched || adresse.valid"> Veuillez saisir votre adresse </small>
+          </div>
+          <div class="mt-3 form-group">
+            <label for="telephone">Telephone</label>
+             <span class="text-danger">*</span>
+            <input type="telephone" name="telephone" id="telephone" required [class.is-invalid]="telephone.invalid && telephone.touched " [class.is-valid]="telephone.valid" #telephone="ngModel" [(ngModel)]="user.telephone" tabindex="2" class="form-control" placeholder="Telephone">
+            <small class="text-danger" [class.d-none]=" telephone.untouched || telephone.valid"> Veuillez saisir votre numero de téléphone </small>
+
+          </div>
+          <div class="mt-3 form-group">
+            <label for="email">Email</label>
+             <span class="text-danger">*</span>
+            <input type="email" name="email" id="email" (keyup)="emailVerif(email.value)" required [class.is-invalid]="emailError || (email.invalid && email.touched ) " [class.is-valid]="email.valid" #email="ngModel" [(ngModel)]="user.email" tabindex="2" class="form-control" placeholder="Email">
+                <div *ngIf="emailError || (email.touched && email.invalid)">
+                    <small class="text-danger" [class.d-none]=" email.untouched || email.valid"> Veuillez saisir votre email </small>
+                    <small class="text-danger" [class.d-none]="!emailError || email.value == ''"> Veuillez saisir l'email au bon format</small>
+                </div>
+           </div>
+          <div class="mt-3 form-group">
+            <label for="password">Password</label>
+             <span class="text-danger">*</span>
+            <input type="password" name="password" id="password" (keyup)="passwordLong(password.value)" required [class.is-invalid]="passError || (password.invalid && password.touched )" [class.is-valid]="password.valid" #password="ngModel" [(ngModel)]="user.password" tabindex="2" class="form-control" placeholder="Password">
+            <div *ngIf="passError || (password.touched && password.invalid)">
+              <small class="text-danger" [class.d-none]="password.untouched || password.valid"> Veuillez remplir ce champ</small>
+              <small class="text-danger" [class.d-none]="!passError || password.value == ''"> Minimun 6 caractéres</small>
+          </div>
+          </div>
+          <div class=" mt-3 form-group">
+
+            <label for="confirm-password">Confirm password</label>
+           <input type="password" (keyup)="passwordVerif(password.value, passwordC.value)" required [class.is-invalid]="passConfError || (passwordC.invalid && passwordC.touched )" [class.is-valid]="passwordC.valid" class="form-control" id="passwordC" #passwordC="ngModel" [(ngModel)]="passConf" placeholder="Confirmer le password" name="passwordC">
+                        <div *ngIf="passConfError || (passwordC.touched && passwordC.invalid)">
+                            <small class="text-danger" [class.d-none]=" passwordC.untouched || passwordC.valid"> Veuillez confirmer votre password </small>
+                            <small class="text-danger" [class.d-none]="!passConfError || passwordC.value == ''">les deux passwords ne sont pas les mêmes</small>
+                        </div>
+          </div>
+          <div class="mt-5 form-group">
+
+               <input [disabled]="userForm.form.invalid || passConfError || emailError" type="submit"  tabindex="4" class="form-control btn btn-success"  value="Valider"/>
+
+          </div>
+
+        </form>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-4 col-sm-offset-1">
+              <a [routerLink]="['/login']">J'ai dejà un compte </a>
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+

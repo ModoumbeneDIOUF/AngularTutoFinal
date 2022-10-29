@@ -1,0 +1,120 @@
+
+<html>
+ <head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ </head>
+  <body>
+    <div id="fullscreen_bg" class="fullscreen_bg">
+      <div id="regContainer" class="container">
+            <div class="container">
+            <div class="col-md-6 col-md-offset-3">
+              <div class="panel panel-login align-content-lg-center">
+
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <form #addProductForm="ngForm" (ngSubmit)="submitProduct()" enctype = "multipart/form-data" >
+
+                        <div class="form-group">
+
+                         <div *ngIf="messageErreur" class="alert alert-danger text-danger text-center"[class.d-none]="messageErreur == ''" role="alert">
+                          {{messageErreur}}
+                       </div>
+                        <div *ngIf="save" class="alert alert-success text-success text-center"[class.d-none]="saveMessage == ''" role="alert">
+                          {{saveMessage}}
+                       </div>
+
+                       <div class="input-style-1">
+                        <label>Categorie du produit</label>
+
+                        <select class="col-lg-12 input-style-1"  #idCat="ngModel" [(ngModel)]="product.idCat" name="idCat">
+                            <option class="form-control" *ngFor="let cat of categories.categories" [value]="cat.idCat"  >{{cat.libelle}}</option>
+                        </select>
+
+                         <div *ngIf=" idCat.touched && idCat.invalid ">
+                              <small class="text-danger" [class.d-none]="idCat.untouched || idCat.valid"> Veuillez remplir ce champ</small>
+
+                        </div>
+                      </div>
+                          <label for="email">Product name</label>
+                           <span class="text-danger">*</span>
+                            <input type="productName" name="productName" id="productName" (keyup)="productNameLong(productName.value)" required
+                               [class.is-invalid]="productNameError || (productName.invalid && productName.touched)" [class.is-valid]="productName.valid"
+                               #productName="ngModel" [(ngModel)]="product.productName" class="form-control" placeholder="productName">
+
+                              <div *ngIf="productNameError || (productName.touched && productName.invalid)">
+                                  <small class="text-danger" [class.d-none]="productName.untouched || productName.valid"> Veuillez remplir ce champ</small>
+                                  <small class="text-danger" [class.d-none]="!productNameError || productName.value == ''"> Minimum 6 caractéres</small>
+                              </div>
+                        </div>
+
+                        <div class="form-group" >
+                          <label>Description</label>
+                           <span class="text-danger">*</span>
+                          <input type="text" name="productDesc" id="productDesc"  required (keyup)="descLong(productDesc.value)"
+                          [class.is-invalid]="descError || (productDesc.invalid && productDesc.touched)" [class.is-valid]="productDesc.valid"
+                          #productDesc="ngModel" [(ngModel)]="product.productDesc" class="form-control" placeholder="productDesc">
+
+                          <small class="text-danger" [class.d-none]="productDesc.untouched || productDesc.valid"> Veuillez remplir ce champ </small>
+                          <small class="text-danger" [class.d-none]="!descError || productDesc.value == ''"> Minimum 10 caractéres</small>
+
+                        </div>
+
+                        <div class="form-group" >
+                          <label>Price</label>
+                           <span class="text-danger">*</span>
+                          <input type="number" name="productPrice" id="productPrice"  required (keyup)="priceVerify(productPrice.value)"
+                          [class.is-invalid]="priceError || priceMinError || (productPrice.invalid && productPrice.touched)" [class.is-valid]="productPrice.valid"
+                          #productPrice="ngModel" [(ngModel)]="product.productPrice" class="form-control" placeholder="productPrice">
+
+                          <small class="text-danger" [class.d-none]="productPrice.untouched || productPrice.valid"> Veuillez remplir ce champ </small>
+                          <small class="text-danger" [class.d-none]="!priceError"> Le prix doit etre positif</small>
+                          <small class="text-danger" [class.d-none]="!priceMinError"> Le prix minimum est 100Fr</small>
+                        </div>
+
+                        <div class="form-group" >
+                          <label>Quantity</label>
+                           <span class="text-danger">*</span>
+                          <input type="number" name="productQty" id="productQty" required (keyup)="qtyVerify(productQty.value)"
+                          [class.is-invalid]="qtyError || (productQty.invalid && productQty.touched)" [class.is-valid]="productQty.valid"
+                          #productQty="ngModel" [(ngModel)]="product.productQty" class="form-control" placeholder="productQty">
+
+                          <small class="text-danger" [class.d-none]="productQty.untouched || productQty.valid"> Veuillez remplir ce champ </small>
+                          <small class="text-danger" [class.d-none]="!qtyError"> La quantité doit etre positive</small>
+
+                        </div>
+
+                        <div class="form-group" >
+                          <label>Image</label>
+                           <span class="text-danger">*</span>
+                          <input type="file"  (change)="onFileChange($event)" name="productImage"  required
+
+                                 class="form-control" placeholder="productImage">
+                          <!-- <div></div>
+                          <small class="text-danger" [class.d-none]="fileError"> Veuillez selectionner une image </small> -->
+                        </div>
+
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                              <input [disabled]="addProductForm.form.invalid || productNameError || descError || qtyError || priceError || priceMinError || fileError" type="submit" tabindex="4" class="form-control btn btn-success" value="Add Product">
+                            </div>
+                          </div>
+                        </div>
+
+                      </form>
+
+                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+</div>
+  </body>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</html>
+

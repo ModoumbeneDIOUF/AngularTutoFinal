@@ -1,0 +1,44 @@
+<link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class="spacer"></div>
+
+<div class="ui container pad-top-30 pad-bottom-30">
+	<div class="center aligned segment">
+		<div class="ui horizontal divider"> Product Details </div>
+	</div>
+</div>
+
+<div class="spacer"></div>
+
+<div class=" container" style="margin-top: 5%">
+	<div class="ui four column grid">
+		<div class="container">
+			<div class="column" *ngIf="product">
+
+          <div class="ui card">
+            <div class="image">
+
+              <!-- <img class="img-responsive" style="height:80%"src="http://127.0.0.1:9000/uploads/{{product.product.fileName}}" height="3px"/> -->
+              <img class="img-responsive" style="height:80%" [src]="imageUri+''+product.fileName" height="3px"/>
+
+            </div>
+            <div class="content">
+              <a class="header">{{product.productName}} </a>
+              <div class="description">
+                {{product.productDesc}}
+              </div>
+            </div>
+            <div class="extra content">
+              <a class="ui teal tag label">{{product.productPrice}} FCFA</a>
+            </div>
+          </div>
+           <button [routerLink]="['/conteneur/productUpdate', product.id]" class="btn btn-primary"> Edit </button>
+           <button class="btn btn-danger" (click)="deleteProd(product.id)"> Delete </button>
+
+			</div>
+	</div>
+</div>
+
+<div class="spacer"></div>

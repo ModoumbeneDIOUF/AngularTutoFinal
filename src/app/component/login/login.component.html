@@ -1,0 +1,53 @@
+
+
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-md-4 offset-md-4">
+      <form #loginForm="ngForm"  (ngSubmit)="loginMy()" >
+
+        <div class="mt-3 form-group">
+
+          <label for="email">Email</label>
+           <span class="text-danger">*</span>
+            <input type="email" name="email" id="email" (keyup)="emailVerif(email.value)" required
+               [class.is-invalid]="email.invalid && email.touched" [class.is-valid]="email.valid"
+               #email="ngModel" [(ngModel)]="user.email" tabindex="2" class="form-control" placeholder="Email">
+
+              <div *ngIf="emailError || (email.touched && email.invalid)">
+                  <small class="text-danger" [class.d-none]="email.untouched || email.valid"> Veuillez remplir ce champ</small>
+                  <small class="text-danger" [class.d-none]="!emailError || email.value == ''"> Veuillez saisir l'email au bon format</small>
+              </div>
+        </div>
+        <div class="mt-3 form-group" >
+          <label for="password">Password</label>
+           <span class="text-danger">*</span>
+          <input type="password" name="password" id="password" (keyup)="passwordLong(password.value)" required
+          [class.is-invalid]="password.invalid && password.touched" [class.is-valid]="password.valid"
+          #password="ngModel" [(ngModel)]="user.password" tabindex="2" class="form-control" placeholder="Password">
+
+          <div *ngIf="passError || (password.touched && password.invalid)">
+            <small class="text-danger" [class.d-none]="password.untouched || password.valid"> Veuillez remplir ce champ</small>
+            <small class="text-danger" [class.d-none]="!passError || password.value == ''"> Minimun 6 caractéres</small>
+        </div>
+        </div>
+        <div class="mt-3 form-group">
+
+              <input [disabled]="loginForm.form.invalid || emailError || passError" type="submit" tabindex="4" class="form-control btn btn-success" value="Connecter">
+
+        </div>
+
+
+      </form>
+
+      <div class="mt-3 form-group">
+
+        <a [routerLink]="['/register']">Pas encore membre </a>
+
+        </div>
+    </div>
+  </div>
+
+</div>
+

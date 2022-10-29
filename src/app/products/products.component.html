@@ -1,0 +1,45 @@
+<link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class="spacer"></div>
+
+<div class="ui container pad-top-30 pad-bottom-30">
+	<div class="center aligned segment">
+		<div class="ui horizontal divider">All Products </div>
+	</div>
+</div>
+
+<div class="spacer"></div>
+<!-- <a [routerLink]="['/three', 1]">Got to page three </a> -->
+
+
+<div class="ui container" style="margin-top: 5%">
+	<div class="ui four column grid">
+		<div class="row">
+			<div class="column" *ngFor="let product of allProducts.products">
+        <a [routerLink]="['/conteneur/product', product.id]">
+          <div class="ui card">
+            <div class="image">
+              <a class="ui red right ribbon label">-50%</a>
+
+              <img class="img-responsive" style="height:80%" [src]="imageUri+''+product.fileName" height="3px"/>
+
+            </div>
+            <div class="content">
+              <a class="header">{{product.productName}} </a>
+              <div class="description">
+                {{product.productDesc}}
+              </div>
+            </div>
+            <div class="extra content">
+              <a class="ui teal tag label">{{product.productPrice}} FCFA</a>
+            </div>
+          </div>
+
+        </a>
+			</div>
+	</div>
+</div>
+
+<div class="spacer"></div>
